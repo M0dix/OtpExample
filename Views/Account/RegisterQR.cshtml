@@ -1,0 +1,32 @@
+﻿@model OtpExample.Models.RegisterQRModel
+@{
+    ViewData["Title"] = "QR-код для Google Authenticator";
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+
+<div class="container">
+    <h2>QR-код для сканирования</h2>
+
+    <p>Секрет для пользователя: <strong>@Model.Email</strong></p>
+    <img src="@Model.QRImageUrl" alt="QR Code" />
+    <p>ИЛИ</p>
+    <p>Введите код вручную: <strong>@Model.ManualEntryKey</strong></p>
+
+    <hr />
+
+    <h3>Подтвердите код, сгенерированный в Google Authenticator</h3>
+
+    <form asp-action="ValidateCode" method="post">
+        <input type="hidden" name="email" value="@Model.Email" />
+        <div>
+            <label>Одноразовый код:</label>
+            <input type="text" name="otp" required />
+        </div>
+        <button type="submit">Подтвердить</button>
+    </form>
+</div>
